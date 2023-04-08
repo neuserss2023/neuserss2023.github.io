@@ -142,9 +142,25 @@
             pixels
             (compared to objects) then induce accumulated errors in the estimated trajectory, where bumpy drifty camera
             locations are observed as shown in <b>(c)</b> here. Compared to EM-Fusion, NeuSE represents objects in as a
-            compact point cloud surrogate (usually in the order of hundreds) and encodes full object shape across viewing
-            angles. This then makes us approach less vulnerable to observation overlap for data association and are lightweight enough to function within a larger environment.
+            compact point cloud surrogate (usually in the order of hundreds) and encodes full object shape across
+            viewing
+            angles. This then makes us approach less vulnerable to observation overlap for data association and are
+            lightweight enough to function within a larger environment.
         </p>
+        <hr>
+        
+        <h3>III. Certain Level of Robustness to Lighting Changes</h3>
+        <img src="figures/lighting.png" style="width:100%">
+        <b>(a)</b> Due to unexpected auto-exposure failure and frame drops,
+        ORB-SLAM3 loses tracking from frame <b>(c)</b> to frame <b>(d)</b> (dashed-line
+        part highlighted by <span style="orange">orange</span>), resulting in severe misalignment of the
+        subsequent loop closure (<b> <span style="orange">green</span></b> in the top right corner) with the
+        ground truth trajectory. <br>
+        <b>(b)</b> NeuSE-derived inter-frame constraints, with
+        less sensitivity to lighting and viewing angle changes, successfully
+        mitigate the lingering effect of inaccurate odometry from ORB-
+        SLAM3 and achieve better trajectory shape alignment of the same
+        loop closure section with the ground truth.
 
         <hr>
         <h5>References</h5>
