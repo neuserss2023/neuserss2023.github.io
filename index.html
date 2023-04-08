@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Addtional Experiment Results from Authors' Response">
+    <meta name="author"
+          content="Author Names Omitted for Anonymous Review. Paper-ID [130]">
+
+    <title>Experiment Results from Authors' Response</title>
+    <!-- Bootstrap core CSS -->
+    <!--link href="bootstrap.min.css" rel="stylesheet"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+    <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+</head>
+
+<body>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container"></div>
+    <h2>Additional Experiment Results from Authors' Response</h2>
+    <hr>
+    <p class="authors">
+        Author Names Omitted for Anonymous Review. Paper-ID [130]
+    </p>
+</div>
+
+<div class="container">
+    <!--    <div class="section">-->
+    <!--        <div class="vcontainer">-->
+    <!--            <iframe class='video' src="figures/gt_video_compressed" frameborder="0"-->
+    <!--                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+    <!--                    allowfullscreen></iframe>-->
+    <!--        </div>-->
+    <!--        <hr>-->
+    <!--        <p>-->
+    <!--        </p>-->
+
+    <!--    </div>-->
+    <p>We thank all reviewers for their comments. This webpage provides additional experiment results as part of
+        authors' reponse to reviewers.</p>
+    <div class="section">
+        <h3>I. Localization and Mapping Results with Non-planar Object Layout</h3>
+        <hr>
+        <h4> A. Data Overview</h4>
+        <hr>
+        <div class="col justify-content-center text-center">
+            <video width="50%" controls playsinline="" loop="" preload="">
+                <source src="figures/gt_video.mp4" type="video/mp4">
+            </video>
+        </div>
+        <hr>
+    </div>
+    <p>
+        The above video shows the scene and trajectory data for examining the proposed NeuSE-based object SLAM strategy
+        with non-planar, randomly-oriented object setup. With the goal of proving its principled effectiveness and
+        considering the unavailability of <b>robust</b>
+        off-the-shelf semantic segmentors for non-upright mugs and bottles and with the mechanism work itself with, we
+        carry out the experiment in simulation. On top of our old experiment setting in Section V.A featuring various
+        viewing angles, occlusion patterns, and object changes, we further randomly turn over
+        roughly 50% of the bottles and mugs (25 out of the 52 objects)
+        in the previous synthetic sequence adopted in the paper, thus creating a "hilly" object layout shown in the
+        video. Note that to obtain a variety of
+        mug orientations, we assume that sticky-tape-typed procedures are used to keep lyding-down mugs from
+        rolling due to gravity.
+    </p>
+    <hr>
+    <h4> B. Results </h4>
+    <img src="figures/orientation_exp.jpg" style="width:100%">
+    <div class="section">
+        <p>
+            Following the same setting of using only mugs or all objects, we demonstrate the effectiveness of the
+            proposed SLAM strategy in the face of randomly oriented objects both
+            quantitatively and qualitatively. <br>
+            <b>(a)</b> As shown in the last column of the table, in terms of the all the metrics here, the proposed
+            strategy
+            turn out to perform better on the new randomly-oriented object sequence. This can be attributed to (1) our
+            training strategy (III.D) where we generate training samples viewed from all over the object of interest
+            with various occlusion partterns from surrounding auxillary objects.
+            (2) The lying-down mugs turn out to help reduce the ambiguity in the existence as their handles are more
+            visible (hence distinguishible) when pointing in a upward than the usual sideway direction. (3) ??? SE(3)
+            equivariance by construction. <br>
+            <b>(b)</b> Visualization trajectory estimates with color variation indicating the ATE values. The
+            evenly lighter color of the trajecotry estimated with all objects further prove our design for leveraging
+            ambiguous objects. <br> <b>(c)</b> Full
+            scene reconstruction of all objects against the better "All Objects" trajecotry estimate, showing NeuSE's
+            reconstruction capability against objects with various orientation and the spatial consistency of the
+            reconstruction and camera trajectory estimate.
+        </p>
+    </div>
+    <hr>
+    <div class="section">
+        <h3>II. Comparison with EM-Fusion on Real-world Sequences</h3>
+        <hr>
+        <h4>A. Baseline: EM-Fusion: Dynamic Object-Level SLAM With Probabilistic Data Association</h4>
+        <p>
+            We further choose to evaluate the self-collected real-world sequences on EM-Fusion[1], an object-level SLAM
+            approach that
+            adopts local Signed Distance Function (SDF) object volumes to track moving objects while performing camera
+            localization.
+            EM-Fusion is selected as a relatively new and open-sourced object SLAM approach and could be directly
+            evaluated without further training. Few open-sourced object SLAM approaches are available and each
+            method may look at a specific type of scene along with relevant objects (e.g., DSP-SLAM[2] with outdoor
+            scenes and cars or CubeSLAM [3] and QuadricSLAM [4] with indoor scenes but static environment). Though
+            focusing on highly dynamic motions in front the camera instead of long-term scene inconsistency, the
+            intention of dealing with certain types of environment dynamics while leveraging object-level information
+            make us find EM-Fusion a quite good baseline to compare with. <br>
+
+        </p>
+        <hr>
+        <h4>B. Results on Real-world Sequences</h4>
+        <div class="col-sm-3">
+            <img src="figures/emfusion.png" style="width:100%">
+        </div>
+        <hr>
+        <p>
+            <b>(a.1)-(a.2)</b> Visualization of EM-Fusion trajectory estimates on the 4-Round and Triple-Infinity loop.
+            <br>
+            <b>(b)</b> Quantitative comparison in term of Absolute Trajectory Error (ATE) against results of all other
+            variants
+            presented by our paper. Together with the trajectory visualization in <b>(a)</b>, we can see that EM-Fusion
+            performs poorly on our real-world testing sequences, leading to bumpy trajectory estimates with significant
+            drift around table corners with sharper turning motion. <br> During actual testing, This may be attributed
+            to: (1) the compromise between tracking accuracy and memory consumption, and (2) the accumulated drift when
+            less object overlap is available. In order to maintain a finer
+            SDF background volumes (voxel size of 1 cm for a 5m^3 space) for better
+            tracking accuracy, the machine can easily run out of memory due to SDF volume instantiation. This then
+            limits EM-Fusion effective continuous operating
+            area to be roughly the size of a table top. <br> To enable EM-Fusion finishes the whole sequence, where our
+            robot
+            drives through 5 tabletops, we slightly tune the SDF volume resolution and divide the whole sequence into
+            several overlapping finer pieces and then align and concatenate the estimate to obtain the final estimate.
+            <br>
+            <b>(c)</b> Visualization of the <span style="color:green"> estimation drift </span> against the <span
+                style="color:orange">ground truth </span>. With faster turning motion hence less
+            observation overlap on the object pixels to be projected for camera pose estimation, the less background
+            pixels
+            (compared to objects) then induce accumulated errors in the estimated trajectory, where bumpy drifty camera
+            locations are observed as shown in <b>(c)</b> here. Compared to EM-Fusion, NeuSE represents objects in as a
+            compact point cloud surrogate (usually in the order of hundreds) and encodes full object shape across viewing
+            angles. This then makes us approach less vulnerable to observation overlap for data association and are lightweight enough to function within a larger environment.
+        </p>
+
+        <hr>
+        <h5>References</h5>
+        <p>
+            [1] Strecke, Michael, and Jorg Stuckler. "Em-fusion: Dynamic object-level slam with probabilistic data
+            association." Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019. <br>
+            [2] Wang, Jingwen, Martin Rünz, and Lourdes Agapito. "DSP-SLAM: object oriented SLAM with deep shape
+            priors." 2021 International Conference on 3D Vision (3DV). IEEE, 2021. <br>
+            [3] Yang, Shichao, and Sebastian Scherer. "Cubeslam: Monocular 3-d object slam." IEEE Transactions on
+            Robotics 35.4 (2019): 925-938. <br>
+            [4] Hosseinzadeh, Mehdi, et al. "Real-time monocular object-model aware sparse SLAM." 2019 International
+            conference on robotics and automation (ICRA). IEEE, 2019.
+        </p>
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                crossorigin="anonymous"></script>
+
+</body>
+</html>
+
