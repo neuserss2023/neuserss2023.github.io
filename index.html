@@ -51,11 +51,9 @@
     <p>
         The above video showcases scene and trajectory data featuring a <b>non-planar, randomly oriented</b> object
         setup. The sequence
-        is utilized to evaluate the effectiveness of the proposed NeuSE-based object SLAM strategy. To
-        demonstrate the principled effectiveness of the proposed approach and overcome the lack of <b>robust</b>
-        off-the-shelf semantic segmentors for
-        real-world non-upright mugs and bottles, off-the-shelf semantic segmentors
-        for real-world non-upright mugs and bottles, the experiment was conducted in simulation.
+        is utilized to evaluate the effectiveness of the proposed NeuSE-based object SLAM strategy. We found that
+        existing off-the-shelf semantic segmentors were unable to detect non-upright posed mugs and bottles in
+        real video and thus conducted our experiment in simulation.
         <br>
         In addition to the previous experiment settings outlined in Section V.A, which included various viewing angles,
         occlusion patterns, and object changes, we further randomly placed approximately 50% of the bottles and mugs (25
@@ -147,7 +145,9 @@
             <br>
             <b>(a)</b>: Quantitative comparison in terms of Absolute Trajectory Error (ATE) of EM-Fusion (the last
             column) against results of all other
-            variants presented by our paper. <br>
+            variants presented by our paper. In terms of the ATE values, EM-Fusion performs much worse compared to its NeuSE- or ORB-
+            based counterparts.
+            <br>
             <b>(b.1)-(b.2)</b>: Visualization of EM-Fusion trajectory estimates on the 4-Round and Triple-Infinity loop.
             The darker color parts, indicating obvious drift around turning corner regions, showcase EM-Fusion's
             incapability in dealing with larger
