@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-          content="Addtional Experiment Results from Authors' Response">
+          content="Addtional Experimental Results from Authors' Response">
     <meta name="author"
           content="Author Names Omitted for Anonymous Review. Paper-ID [130]">
 
@@ -31,32 +31,24 @@
 </div>
 
 <div class="container">
-    <!--    <div class="section">-->
-    <!--        <div class="vcontainer">-->
-    <!--            <iframe class='video' src="figures/gt_video_compressed" frameborder="0"-->
-    <!--                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-    <!--                    allowfullscreen></iframe>-->
-    <!--        </div>-->
-    <!--        <hr>-->
-    <!--        <p>-->
-    <!--        </p>-->
-
-    <!--    </div>-->
     <p>We thank all reviewers for their comments. As part of
-        authors' reponse to reviewers, this webpage provides additional results on (1) the SLAM results with a synthetic non-planar object layout setting with diverse object orientations, and (2) comparison results of the selected
-        EM-Fusion baseline on our real-world sequence.</p>
+        authors' reponse to reviewers, this webpage provides additional results on:<br>
+        <b>(1)</b> SLAM results with a synthetic non-planar object layout setting with diverse object orientations.
+        <br>
+        <b>(2)</b> Comparison results of the selected EM-Fusion baseline on our real-world sequence.</p>
+
     <div class="section">
         <h3>I. Experiment: Non-planar Object Layout with Various Orientations</h3>
-        <hr>
+        <br>
         <h4> A. Data Overview</h4>
-        <hr>
+        <br>
         <div class="col justify-content-center text-center">
-            <video width="50%" controls playsinline="" loop="" preload="">
+            <video width="90%" controls playsinline="" loop="" preload="">
                 <source src="figures/gt_video.mp4" type="video/mp4">
             </video>
         </div>
-        <hr>
     </div>
+    <br>
     <p>
         The video above showcases scene and trajectory data used to evaluate the effectiveness of the proposed
         NeuSE-based object SLAM strategy with a non-planar, randomly-oriented object setup. To demonstrate its
@@ -71,14 +63,19 @@
     </p>
     <hr>
     <h4> B. Results </h4>
-    <img src="figures/sim_orientation.png" style="width:100%">
+    <br>
+  <center><img src="figures/sim_orientation.png" style="width:90%"></center>
     <div class="section">
         <p>
             Following the same setting of running the experiment with only mugs and all objects to include bottles, we
             demonstrate the effectiveness of the
             proposed SLAM strategy in the face of randomly oriented objects both
             quantitatively and qualitatively. <br>
-            <b>(a)</b> As shown in the last column of the table, in terms of adopted metrics, Absolute Trajectory Error
+            <b>(a.1)-(a.2)</b> Visualization of the trajectory estimates with color variation to indicate the ATE
+            values. The
+            lighter color of the trajectory estimated with all objects further demonstrates the effectiveness of our
+            design for leveraging ambiguous objects. <br>
+            <b>(b)</b> As shown in the "Non Planar" section of the table, in terms of adopted metrics, Absolute Trajectory Error
             (ATE) and translational Relative Pose Error (RPE), the proposed
             strategy
             turns out to perform better on the new randomly-oriented object sequence. This can be attributed to: (1) Our
@@ -86,18 +83,16 @@
             from various angles, along with occlusion patterns from surrounding auxiliary objects. This enables the
             learning of the underlying geometric features of the category shape that are robust to new occlusion
             scenarios.
-
+            <br>
             (2) The learned representation is SE(3)-equivariant by construction,meaning that knowledge learned from
             upright observations can also benefit processing laid down objects. This property further enhances the
             model's ability to generalize to new scenarios.
-
+            <br>
             (3) The use of lying-down mugs in the dataset turn out to help reduce the shape ambiguity in the sequence as
             their handles
             are more visible when pointing upwards than in the usual sideways direction.
             <br>
-            <b>(b)</b> Visualization of the trajectory estimates with color variation to indicate the ATE values. The
-            lighter color of the trajectory estimated with all objects further demonstrates the effectiveness of our
-            design for leveraging ambiguous objects. <br>
+
             <b>(c)</b> We perform full scene reconstruction of all objects that appear in the sequence and
             visualize it alongside the better "All Objects" trajectory estimate, demonstrating NeuSE's reconstruction
             capability for objects with various orientations, as well as the spatial consistency of the reconstruction
@@ -107,7 +102,7 @@
     <hr>
     <div class="section">
         <h3>II. Comparison with EM-Fusion on Real-world Sequences</h3>
-        <hr>
+        <br>
         <h4>A. Choise of EM-Fusion as Baseline</h4>
         <p>
             We further choose to evaluate the self-collected real-world sequences on EM-Fusion[1], an object-level SLAM
@@ -136,12 +131,11 @@
         </p>
         <hr>
         <h4>B. Results on Real-world Sequences</h4>
-        <div class="col-sm-3">
-            <img src="figures/emfusion.png" style="width:100%">
-        </div>
-        <hr>
+        <br>
+        <center><img src="figures/emfusion.png" style="width:90%"></center>
+        <br>
         <p>
-            <b>(a.1)-(a.2)</b>: Visualization of EM-Fusion trajectory estimates on the 4-Round and Triple-Infinity loop.
+            <b>(a.1)-(a.2)</b> Visualization of EM-Fusion trajectory estimates on the 4-Round and Triple-Infinity loop.
             <br>
             <b>(b)</b> Quantitative comparison in terms of Absolute Trajectory Error (ATE) against results of all other
             variants presented by our paper. <br>
