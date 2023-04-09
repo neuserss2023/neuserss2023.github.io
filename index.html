@@ -23,7 +23,7 @@
 <body>
 <div class="jumbotron jumbotron-fluid">
     <div class="container"></div>
-    <h2>Additional Experiment Results from Authors' Response</h2>
+    <h2>Additional Experimental Results from Authors' Response</h2>
     <hr>
     <p class="authors">
         Author Names Omitted for Anonymous Review. Paper-ID [130]
@@ -42,10 +42,11 @@
     <!--        </p>-->
 
     <!--    </div>-->
-    <p>We thank all reviewers for their comments. This webpage provides additional experiment results as part of
-        authors' reponse to reviewers.</p>
+    <p>We thank all reviewers for their comments. As part of
+        authors' reponse to reviewers, this webpage provides additional results on (1) the SLAM results with a synthetic non-planar object layout setting with diverse object orientations, and (2) comparison results of the selected
+        EM-Fusion baseline on our real-world sequence.</p>
     <div class="section">
-        <h3>I. Localization and Mapping Results with Non-planar Object Layout</h3>
+        <h3>I. Experiment: Non-planar Object Layout with Various Orientations</h3>
         <hr>
         <h4> A. Data Overview</h4>
         <hr>
@@ -57,59 +58,80 @@
         <hr>
     </div>
     <p>
-        The above video shows the scene and trajectory data for examining the proposed NeuSE-based object SLAM strategy
-        with non-planar, randomly-oriented object setup. With the goal of proving its principled effectiveness and
-        considering the unavailability of <b>robust</b>
-        off-the-shelf semantic segmentors for non-upright mugs and bottles and with the mechanism work itself with, we
-        carry out the experiment in simulation. On top of our old experiment setting in Section V.A featuring various
-        viewing angles, occlusion patterns, and object changes, we further randomly turn over
-        roughly 50% of the bottles and mugs (25 out of the 52 objects)
-        in the previous synthetic sequence adopted in the paper, thus creating a "hilly" object layout shown in the
-        video. Note that to obtain a variety of
-        mug orientations, we assume that sticky-tape-typed procedures are used to keep lyding-down mugs from
-        rolling due to gravity.
+        The video above showcases scene and trajectory data used to evaluate the effectiveness of the proposed
+        NeuSE-based object SLAM strategy with a non-planar, randomly-oriented object setup. To demonstrate its
+        effectiveness in principle and overcome the lack of <b>robust</b> off-the-shelf semantic segmentors for
+        non-upright mugs and bottles,
+        we conducted the experiment in simulation. In addition to our previous experiment settings in Section V.A, which
+        featured
+        various viewing angles, occlusion patterns, and object changes, we randomly laid down roughly 50% of the
+        bottles and mugs (25 out of the 52 objects) in the previous synthetic sequence. This created a "hilly" object
+        layout shown in the video. Note that we assume the use of sticky-tape-typed procedures to
+        prevent lying-down mugs from rolling due to gravity so as to obtain a variety of mug orientations.
     </p>
     <hr>
     <h4> B. Results </h4>
-    <img src="figures/orientation_exp.jpg" style="width:100%">
+    <img src="figures/sim_orientation.png" style="width:100%">
     <div class="section">
         <p>
-            Following the same setting of using only mugs or all objects, we demonstrate the effectiveness of the
+            Following the same setting of running the experiment with only mugs and all objects to include bottles, we
+            demonstrate the effectiveness of the
             proposed SLAM strategy in the face of randomly oriented objects both
             quantitatively and qualitatively. <br>
-            <b>(a)</b> As shown in the last column of the table, in terms of the all the metrics here, the proposed
+            <b>(a)</b> As shown in the last column of the table, in terms of adopted metrics, Absolute Trajectory Error
+            (ATE) and translational Relative Pose Error (RPE), the proposed
             strategy
-            turn out to perform better on the new randomly-oriented object sequence. This can be attributed to (1) our
-            training strategy (III.D) where we generate training samples viewed from all over the object of interest
-            with various occlusion partterns from surrounding auxillary objects.
-            (2) The lying-down mugs turn out to help reduce the ambiguity in the existence as their handles are more
-            visible (hence distinguishible) when pointing in a upward than the usual sideway direction. (3) ??? SE(3)
-            equivariance by construction. <br>
-            <b>(b)</b> Visualization trajectory estimates with color variation indicating the ATE values. The
-            evenly lighter color of the trajecotry estimated with all objects further prove our design for leveraging
-            ambiguous objects. <br> <b>(c)</b> Full
-            scene reconstruction of all objects against the better "All Objects" trajecotry estimate, showing NeuSE's
-            reconstruction capability against objects with various orientation and the spatial consistency of the
-            reconstruction and camera trajectory estimate.
+            turns out to perform better on the new randomly-oriented object sequence. This can be attributed to: (1) Our
+            training strategy (III.D) involves generating training samples that provide a view of the object of interest
+            from various angles, along with occlusion patterns from surrounding auxiliary objects. This enables the
+            learning of the underlying geometric features of the category shape that are robust to new occlusion
+            scenarios.
+
+            (2) The learned representation is SE(3)-equivariant by construction,meaning that knowledge learned from
+            upright observations can also benefit processing laid down objects. This property further enhances the
+            model's ability to generalize to new scenarios.
+
+            (3) The use of lying-down mugs in the dataset turn out to help reduce the shape ambiguity in the sequence as
+            their handles
+            are more visible when pointing upwards than in the usual sideways direction.
+            <br>
+            <b>(b)</b> Visualization of the trajectory estimates with color variation to indicate the ATE values. The
+            lighter color of the trajectory estimated with all objects further demonstrates the effectiveness of our
+            design for leveraging ambiguous objects. <br>
+            <b>(c)</b> We perform full scene reconstruction of all objects that appear in the sequence and
+            visualize it alongside the better "All Objects" trajectory estimate, demonstrating NeuSE's reconstruction
+            capability for objects with various orientations, as well as the spatial consistency of the reconstruction
+            and camera trajectory estimate.
         </p>
     </div>
     <hr>
     <div class="section">
         <h3>II. Comparison with EM-Fusion on Real-world Sequences</h3>
         <hr>
-        <h4>A. Baseline: EM-Fusion: Dynamic Object-Level SLAM With Probabilistic Data Association</h4>
+        <h4>A. Choise of EM-Fusion as Baseline</h4>
         <p>
             We further choose to evaluate the self-collected real-world sequences on EM-Fusion[1], an object-level SLAM
             approach that
             adopts local Signed Distance Function (SDF) object volumes to track moving objects while performing camera
             localization.
-            EM-Fusion is selected as a relatively new and open-sourced object SLAM approach and could be directly
-            evaluated without further training. Few open-sourced object SLAM approaches are available and each
-            method may look at a specific type of scene along with relevant objects (e.g., DSP-SLAM[2] with outdoor
-            scenes and cars or CubeSLAM [3] and QuadricSLAM [4] with indoor scenes but static environment). Though
-            focusing on highly dynamic motions in front the camera instead of long-term scene inconsistency, the
-            intention of dealing with certain types of environment dynamics while leveraging object-level information
-            make us find EM-Fusion a quite good baseline to compare with. <br>
+
+            We have chosen EM-Fusion as our RGB-D object SLAM approach because it is relatively new and open-sourced,
+            allowing for direct evaluation without the need for additional training. It is important to note that since
+            Kimera [2], as suggested by Reviewer #3, operates with inertial (IMU) and visual data from mono and stereo
+            cameras, it is of a different data modality than our approach (RGB-D). Therefore, it is not considered a
+            suitable baseline for our evaluation.
+
+            There are only few open-source object SLAM approaches available, and each approach may focus on
+            handling a specific type of scene and relevant objects. For example, DSP-SLAM [3] looks at outdoor
+            scenes and cars with monocular or stereo cameras and Lidar measurements, while CubeSLAM [4] and QuadricSLAM
+            [5] are more suited for indoor scenes with a static
+            environment. Hence, it is not easy to find an object SLAM approach that fully addresses the same problem as
+            ours.
+
+            Despite not specifically focusing on long-term scene consistency, EM-Fusion is designed to handle "certain"
+            dynamics, namely, motions of moving objects that occur in front of the camera. By leveraging object-level
+            information, EM-Fusion is considered an appropriate object SLAM baseline to compare with our method.
+            <br>
 
         </p>
         <hr>
@@ -119,22 +141,24 @@
         </div>
         <hr>
         <p>
-            <b>(a.1)-(a.2)</b> Visualization of EM-Fusion trajectory estimates on the 4-Round and Triple-Infinity loop.
+            <b>(a.1)-(a.2)</b>: Visualization of EM-Fusion trajectory estimates on the 4-Round and Triple-Infinity loop.
             <br>
-            <b>(b)</b> Quantitative comparison in term of Absolute Trajectory Error (ATE) against results of all other
-            variants
-            presented by our paper. Together with the trajectory visualization in <b>(a)</b>, we can see that EM-Fusion
-            performs poorly on our real-world testing sequences, leading to bumpy trajectory estimates with significant
-            drift around table corners with sharper turning motion. <br> During actual testing, This may be attributed
-            to: (1) the compromise between tracking accuracy and memory consumption, and (2) the accumulated drift when
-            less object overlap is available. In order to maintain a finer
-            SDF background volumes (voxel size of 1 cm for a 5m^3 space) for better
-            tracking accuracy, the machine can easily run out of memory due to SDF volume instantiation. This then
-            limits EM-Fusion effective continuous operating
-            area to be roughly the size of a table top. <br> To enable EM-Fusion finishes the whole sequence, where our
-            robot
-            drives through 5 tabletops, we slightly tune the SDF volume resolution and divide the whole sequence into
-            several overlapping finer pieces and then align and concatenate the estimate to obtain the final estimate.
+            <b>(b)</b> Quantitative comparison in terms of Absolute Trajectory Error (ATE) against results of all other
+            variants presented by our paper. <br>
+
+            The trajectory visualization in <b>(a)</b> reveals that EM-Fusion performs poorly on the real-world testing
+            sequences, resulting in bumpy trajectory estimates with significant drift around table corners with sharper
+            turning motion. While it is able to deal with dynamics at frame intersections when our long-term scene
+            layout changes, its poor performance is primarily attributed to the compromise between tracking accuracy and
+            memory consumption and the accumulated drift when less object overlap is available. In order to maintain a
+            finer SDF background volume (voxel size of 1 cm for a 5m<sup>3</sup> space) for better tracking accuracy,
+            the machine
+            can easily run out of memory due to SDF volume instantiation. Therefore, EM-Fusion's effective continuous
+            operating area is limited to roughly the size of a tabletop. To enable EM-Fusion to go through the whole
+            sequence where the robot drives through five tabletops, the SDF volume resolution is slightly tuned, and the
+            whole sequence is divided into several overlapping shorter sessions, from where the estimates are aligned
+            and
+            concatenated to obtain the final estimate.
             <br>
             <b>(c)</b> Visualization of the <span style="color:green"> estimation drift </span> against the <span
                 style="color:orange">ground truth </span>. With faster turning motion hence less
@@ -148,30 +172,17 @@
             lightweight enough to function within a larger environment.
         </p>
         <hr>
-        
-        <h3>III. Certain Level of Robustness to Lighting Changes</h3>
-        <img src="figures/lighting.png" style="width:100%">
-        <b>(a)</b> Due to unexpected auto-exposure failure and frame drops,
-        ORB-SLAM3 loses tracking from frame <b>(c)</b> to frame <b>(d)</b> (dashed-line
-        part highlighted by <span style="orange">orange</span>), resulting in severe misalignment of the
-        subsequent loop closure (<b> <span style="orange">green</span></b> in the top right corner) with the
-        ground truth trajectory. <br>
-        <b>(b)</b> NeuSE-derived inter-frame constraints, with
-        less sensitivity to lighting and viewing angle changes, successfully
-        mitigate the lingering effect of inaccurate odometry from ORB-
-        SLAM3 and achieve better trajectory shape alignment of the same
-        loop closure section with the ground truth.
-
-        <hr>
         <h5>References</h5>
         <p>
             [1] Strecke, Michael, and Jorg Stuckler. "Em-fusion: Dynamic object-level slam with probabilistic data
             association." Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019. <br>
-            [2] Wang, Jingwen, Martin Rünz, and Lourdes Agapito. "DSP-SLAM: object oriented SLAM with deep shape
+            [2] Rosinol, Antoni, et al. "Kimera: an open-source library for real-time metric-semantic localization and
+            mapping." 2020 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2020.
+            [3] Wang, Jingwen, Martin Rünz, and Lourdes Agapito. "DSP-SLAM: object oriented SLAM with deep shape
             priors." 2021 International Conference on 3D Vision (3DV). IEEE, 2021. <br>
-            [3] Yang, Shichao, and Sebastian Scherer. "Cubeslam: Monocular 3-d object slam." IEEE Transactions on
+            [4] Yang, Shichao, and Sebastian Scherer. "Cubeslam: Monocular 3-d object slam." IEEE Transactions on
             Robotics 35.4 (2019): 925-938. <br>
-            [4] Hosseinzadeh, Mehdi, et al. "Real-time monocular object-model aware sparse SLAM." 2019 International
+            [5] Hosseinzadeh, Mehdi, et al. "Real-time monocular object-model aware sparse SLAM." 2019 International
             conference on robotics and automation (ICRA). IEEE, 2019.
         </p>
 
